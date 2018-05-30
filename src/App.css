@@ -8,7 +8,9 @@ body {
   background-color: #FFFFFF;
   color: #5f5f5f;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
+  margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 .app .label {
@@ -20,4 +22,11 @@ body {
 
 .app .label.title {
   font-weight: 700;
+}
+
+@media (min-width: 900px) {
+  .app .label {
+    max-width: 900px;
+    margin: auto;
+  }
 }
