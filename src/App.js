@@ -53,14 +53,18 @@ class App extends Component {
     const {RenderDays, RenderHours, RenderMinutes, RenderSeconds} = this;
 
     return (
-      <div className="app">
-        <div className="label title"><span role="img" aria-labelledby="">🤔</span>¿Cuanto falta para el gran día?<span role="img" aria-labelledby="">💐</span></div>
-        {
-          this.state.timeOut &&
-          <div className="label">
-            <RenderDays days={this.state.timeOut.days}/> <RenderHours hours={this.state.timeOut.hours}/> <RenderMinutes minutes={this.state.timeOut.minutes}/> y <RenderSeconds seconds={this.state.timeOut.seconds}/>
+      <div className="hero is-fullheight is-bold is-primary">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title has-text-centered is-size-1"><span role="img" aria-labelledby="">🤔</span>¿Cuanto falta para el gran día?<span role="img" aria-labelledby="">💐</span></h1>
+            {
+              this.state.timeOut &&
+              <h2 className="subtitle has-text-centered is-size-2">
+                <RenderDays days={this.state.timeOut.days}/> <RenderHours hours={this.state.timeOut.hours}/> <RenderMinutes minutes={this.state.timeOut.minutes}/> y <RenderSeconds seconds={this.state.timeOut.seconds}/>
+              </h2>
+            }
           </div>
-        }
+        </div>
       </div>
     );
   }
