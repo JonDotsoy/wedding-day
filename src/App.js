@@ -13,10 +13,12 @@ async function interval(fn, ms) {
   } while(true)
 }
 
+const timeEvent = moment('4-jul-2018 10:00', 'DD-MMM-YYYY HH:mm').toDate();
+
 class App extends Component {
   state = {
-    // label: 'calculando...',
-    timeOut: this.makeLableTimeOut(),
+    timeEvent,
+    timeOut: undefined,
   }
 
   componentDidMount() {
@@ -29,8 +31,8 @@ class App extends Component {
     interval(updateLabel);
   }
 
-  makeLableTimeOut () {
-    const end = moment('4-jul-2018 10:00', 'DD-MMM-YYYY HH:mm');
+  makeLableTimeOut = () => {
+    const end = moment(this.state.timeEvent);
     const now = moment();
     
     return {
@@ -42,10 +44,10 @@ class App extends Component {
     };
   }
 
-  RenderDays = ({days}) => days === 1 ? `Queda un día` : `Quedan ${days} días`
-  RenderHours = ({hours}) => hours === 1 ? `${hours % 24} horas` : `${hours % 24} horas`
-  RenderMinutes = ({minutes}) => minutes === 1 ? `${minutes % 60} minuto` : `${minutes % 60} minutos`
-  RenderSeconds = ({seconds}) => seconds === 1 ? `${seconds % 60} segundo` : `${seconds % 60} segundos`
+  RenderDays = ({days}) => days === 1 ? [`Queda un día`] : [`Quedan `, days, ` días`]
+  RenderHours = ({hours}) => hours === 1 ? [hours % 24, ` horas`] : [hours % 24, ` horas`]
+  RenderMinutes = ({minutes}) => minutes === 1 ? [minutes % 60, ` minuto`] : [minutes % 60, ` minutos`]
+  RenderSeconds = ({seconds}) => seconds === 1 ? [`${seconds % 60}`, ` segundo`] : [`${seconds % 60}`, ` segundos`]
 
   render() {
     const {RenderDays, RenderHours, RenderMinutes, RenderSeconds} = this;
@@ -53,9 +55,12 @@ class App extends Component {
     return (
       <div className="app">
         <div className="label title"><span role="img" aria-labelledby="">🤔</span>¿Cuanto falta para el gran día?<span role="img" aria-labelledby="">💐</span></div>
-        <div className="label">
-          <RenderDays days={this.state.timeOut.days}/>, <RenderHours hours={this.state.timeOut.hours}/>, <RenderMinutes minutes={this.state.timeOut.minutes}/> y <RenderSeconds seconds={this.state.timeOut.seconds}/>
-        </div>
+        {
+          this.state.timeOut &&
+          <div className="label">
+            <RenderDays days={this.state.timeOut.days}/> <RenderHours hours={this.state.timeOut.hours}/> <RenderMinutes minutes={this.state.timeOut.minutes}/> y <RenderSeconds seconds={this.state.timeOut.seconds}/>
+          </div>
+        }
       </div>
     );
   }
